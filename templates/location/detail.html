@@ -19,6 +19,9 @@
                 <img src="{{ location.image_file.url }}"></img>
             {% endif %}
         </div>
+        <div class="col-md-4">
+            <a type="button" href="{% url 'location_update' pk=location.id %}" class="btn btn-default pull-right">edit</a>
+        </div>
         <div class="col-md-12">
         {% for review in location.get_reviews %}
              <h3>{% include 'base/review.html' with location=location.get_average_rating %}</h3>
