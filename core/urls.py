@@ -12,4 +12,5 @@ urlpatterns = patterns('',
  url(r'locations/(?P<pk>\d+)/update/$', coreviews.LocationUpdateView.as_view(), name='location_update'),
  url(r'locations/(?P<pk>\d+)/review/create/$', coreviews.ReviewCreateView.as_view(), name='review_create'),
  url(r'locations/(?P<pk>\d+)/review/update/$', coreviews.ReviewUpdateView.as_view(), name='review_update'),
+ url(r'entrance/$', coreviews.entrance),
 )

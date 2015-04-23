@@ -16,6 +16,19 @@ RATING_CHOICES = (
 
     )
 
+SEATING_CHOICES = (
+    (0, 'None'),
+    (1, 'Minimal'),
+    (2, 'Some'),
+    (3, 'Ample')
+    )
+    
+WIFI_CHOICES = (
+    (0, 'None'),
+    (1, 'Spotty'),
+    (2, 'Strong')
+    )
+
 def upload_to_location(instance, filename):
     blocks = filename.split('.')
     ext = blocks[-1]
@@ -31,6 +44,8 @@ class Location(models.Model):
     hours = models.TextField(null=True, blank=True)
     image_file = models.ImageField(upload_to=upload_to_location, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    wifi = models.IntegerField(choices=WIFI_CHOICES, null=True, blank=True)
+    seating = models.IntegerField(choices=SEATING_CHOICES, null=True, blank=True)
     
     def __unicode__(self):
         return self.title

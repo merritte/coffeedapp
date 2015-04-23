@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
+from sitegate.decorators import redirect_signedin, sitegate_view
 import core.models as coremodels
 
 # Create your views here.
@@ -23,6 +24,17 @@ class LocationDetailView(DetailView):
     model = coremodels.Location
     template_name = 'location/detail.html'
     context_object_name = 'location'
+    
+    def get_context_date(self, **kwargs):
+        context = super(LocationDetailView, self).get_context_date(**kwargs)
+        location = coremodels.Location.objects.get(id=self.kwargs['pk'])
+        if self.request.user.is_authenticated():
+            user_reviews = coremodels.Review.objects.filter(location=location)
+            if user_reviews.count() > 0:
+                context['user_review'] = user_reveiws[0]
+            else:
+                context['user_review'] = None
+        return context
     
 class LocationCreateView(CreateView):
   model = coremodels.Location
@@ -57,3 +69,7 @@ class ReviewUpdateView(UpdateView):
  
     def get_success_url(self):
         return self.object.location.get_absolute_url()
+        
+@sitegate_view(widget_attrs={'class': 'form-control', 'placeholder': lambda f: f.label}, template='form_bootstrap3') # This also prevents logged in users from accessing our sign in/sign up page.
+def entrance(request):
+    return render(request, 'base/entrance.html', {'title': 'Sign in & Sign up'})
