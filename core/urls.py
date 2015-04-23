@@ -9,6 +9,7 @@ urlpatterns = patterns('',
  url(r'locations/(?P<pk>\d+)/detail/$', coreviews.LocationDetailView.as_view(), name='locations_list'),
  url(r'location/create/$', coreviews.LocationCreateView.as_view()),
  url(r'search/$', coreviews.SearchListView.as_view()),
-url(r'locations/(?P<pk>\d+)/update/$', coreviews.LocationUpdateView.as_view(), name='location_update'),
- 
+ url(r'locations/(?P<pk>\d+)/update/$', coreviews.LocationUpdateView.as_view(), name='location_update'),
+ url(r'locations/(?P<pk>\d+)/review/create/$', coreviews.ReviewCreateView.as_view(), name='review_create'),
+ url(r'locations/(?P<pk>\d+)/review/update/$', coreviews.ReviewUpdateView.as_view(), name='review_update'),
 )
